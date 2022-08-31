@@ -8,7 +8,7 @@ def testLogin():
         "password": "test",
     })
 
-    return "message" in res.body and res.body["message"] == "success"
+    return res.hasKeys("message") and res.body["message"] == "success"
 
 def testSignup():
     res = testRoute(POST, f"{server}/api/v1/signup", body={
@@ -16,7 +16,7 @@ def testSignup():
         "password": "test",
     })
 
-    return "message" in res.body and res.body["message"] == "success"
+    return res.hasKeys("message") and res.body["message"] == "success"
 
 if __name__ == "__main__":
     exitCode = runTests([

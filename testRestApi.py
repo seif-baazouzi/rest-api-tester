@@ -36,6 +36,13 @@ class Response:
         self.status  = res.status_code
         self.headers = res.headers
         self.body    = json.loads(res.text)
+    
+    def hasKeys(self, *keys):
+        for key in keys:
+            if key not in self.body:
+                return False
+        
+        return True
 
 def testRoute(method, url, headers={}, body={}):
     res = requests.request(method, url=url, headers=headers, json=body)
