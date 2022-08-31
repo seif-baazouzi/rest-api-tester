@@ -37,6 +37,7 @@ class Response:
         self.headers = res.headers
         self.body    = json.loads(res.text)
     
+    # check if the following keys are exist in the body
     def hasKeys(self, *keys):
         for key in keys:
             if key not in self.body:
@@ -44,6 +45,7 @@ class Response:
         
         return True
     
+    # check if the following keys are exist in the body and they are equals to there values
     def equals(self, keyValuePairs):
         for key, value in keyValuePairs.items():
             if key not in self.body or self.body[key] != value:
