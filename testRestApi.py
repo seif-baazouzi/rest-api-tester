@@ -43,6 +43,13 @@ class Response:
                 return False
         
         return True
+    
+    def equals(self, keyValuePairs):
+        for key, value in keyValuePairs.items():
+            if key not in self.body or self.body[key] != value:
+                return False
+        
+        return True
 
 def testRoute(method, url, headers={}, body={}):
     res = requests.request(method, url=url, headers=headers, json=body)
