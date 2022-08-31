@@ -11,4 +11,8 @@ def testLogin():
     return "message" in res.body and res.body["message"] == "success"
 
 if __name__ == "__main__":
-    Test("Test Login Route", testLogin).run()
+    exitCode = runTests([
+        Test("Test Login Route", testLogin)
+    ])
+    
+    exit(exitCode)

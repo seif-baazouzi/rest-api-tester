@@ -30,3 +30,17 @@ class Test:
         print(f"{self.title}:\t {resMessage}")
         
         return res
+
+def runTests(tests):
+    testsCount = 0
+    successCount = 0
+
+    for test in tests:
+        if test.run():
+            successCount += 1
+        testsCount += 1
+
+    failedCount = testsCount - successCount
+    print(f"\nRun {testsCount} tests, {successCount} are success and {failedCount} are failed")
+
+    return 0 if failedCount == 0 else 1
