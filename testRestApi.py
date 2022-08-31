@@ -17,3 +17,16 @@ class Response:
 def testRoute(method, url, headers={}, body={}):
     res = requests.request(method, url=url, headers=headers, json=body)
     return Response(res)
+
+class Test:
+    def __init__(self, title, function):
+        self.title = title
+        self.function = function
+
+    def run(self):
+        res = self.function()
+        resMessage = "success" if res else "failed"
+        
+        print(f"{self.title}:\t {resMessage}")
+        
+        return res

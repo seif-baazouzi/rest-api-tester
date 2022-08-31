@@ -8,7 +8,7 @@ def testLogin():
         "password": "test",
     })
 
-    print(res.body)
+    return "message" in res.body and res.body["message"] == "success"
 
 if __name__ == "__main__":
-    testLogin()
+    Test("Test Login Route", testLogin).run()
