@@ -1,6 +1,29 @@
 import json
 import requests
 
+# logging
+
+RED    = "\033[31m"
+BOLD   = "\033[1m"
+RESET  = "\033[0m"
+GREEN  = "\033[32m"
+YELLOW = "\033[33m"
+
+
+def green(msg):
+  return GREEN + BOLD + str(msg) + RESET
+
+def yellow(msg):
+  return YELLOW + BOLD + str(msg) + RESET
+
+def red(msg):
+  return RED + BOLD + str(msg) + RESET
+
+def bold(msg):
+  return BOLD + str(msg) + RESET
+
+# testing
+
 GET    = "GET"
 POST   = "POST"
 PUT    = "PUT"
@@ -16,7 +39,11 @@ class Response:
 
 def testRoute(method, url, headers={}, body={}):
     res = requests.request(method, url=url, headers=headers, json=body)
-    return Response(res)
+    res = Response(res)
+
+    print(f"{yellow(method)} ({bold(res.status)}) {url}")
+
+    return res
 
 class Test:
     def __init__(self, title, function):
@@ -24,10 +51,11 @@ class Test:
         self.function = function
 
     def run(self):
+        print(f"Testing {self.title}")
         res = self.function()
-        resMessage = "success" if res else "failed"
+        resMessage = green("success") if res else red("failed")
         
-        print(f"{self.title}:\t {resMessage}")
+        print(f"Test {self.title} {resMessage}\n")
         
         return res
 
@@ -41,6 +69,6 @@ def runTests(tests):
         testsCount += 1
 
     failedCount = testsCount - successCount
-    print(f"\nRun {testsCount} tests, {successCount} are success and {failedCount} are failed")
+    print(f"\nRun {yellow(testsCount)} tests, {green(successCount)} are success and {red(failedCount)} are failed")
 
     return 0 if failedCount == 0 else 1

@@ -10,9 +10,18 @@ def testLogin():
 
     return "message" in res.body and res.body["message"] == "success"
 
+def testSignup():
+    res = testRoute(POST, f"{server}/api/v1/signup", body={
+        "username": "test",
+        "password": "test",
+    })
+
+    return "message" in res.body and res.body["message"] == "success"
+
 if __name__ == "__main__":
     exitCode = runTests([
-        Test("Test Login Route", testLogin)
+        Test("Signup Route", testSignup),
+        Test("Login Route", testLogin),
     ])
-    
+
     exit(exitCode)
